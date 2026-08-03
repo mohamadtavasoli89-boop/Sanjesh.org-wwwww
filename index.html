@@ -1,1 +1,66 @@
-<h1>سلام</h1>
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>ورود</title>
+<style>
+body{
+font-family:tahoma;
+background:#f2f2f2;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+.box{
+background:white;
+padding:30px;
+border-radius:15px;
+box-shadow:0 0 15px rgba(0,0,0,.2);
+text-align:center;
+width:320px;
+}
+input{
+width:100%;
+padding:10px;
+margin:10px 0;
+font-size:18px;
+}
+button{
+width:100%;
+padding:10px;
+background:#0066cc;
+color:white;
+border:none;
+border-radius:8px;
+font-size:18px;
+}
+</style>
+</head>
+<body>
+
+<div class="box">
+<h2>ورود به سامانه</h2>
+
+<input id="meli" type="text" placeholder="کد ملی">
+
+<button onclick="login()">ورود</button>
+
+<p id="msg"></p>
+</div>
+
+<script>
+function login(){
+var code=document.getElementById("meli").value;
+
+if(code==="1920503889"){
+window.location.href="https://google.com";
+}else{
+document.getElementById("msg").innerHTML="کد ملی اشتباه است";
+}
+}
+</script>
+
+</body>
+</html>
