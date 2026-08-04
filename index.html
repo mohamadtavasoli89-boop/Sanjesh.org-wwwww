@@ -42,13 +42,16 @@
     margin-bottom: 20px;
     font-size: 20px;
   }
-  /* نمایش کامل و اندازه مناسب لوگو بدون برش دایره‌ای */
+  /* عکس هم‌اندازه با کادر بالا، مستطیلی و با لبه‌های گرد */
   .logo {
     display: block;
-    max-width: 120px;
+    width: 100%;
     height: auto;
+    max-height: 160px;
     margin: 0 auto 15px auto;
-    object-fit: contain;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   }
   label {
     display: block;
@@ -185,4 +188,5 @@
 
 </body>
 </html>
+
 
