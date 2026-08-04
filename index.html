@@ -1,107 +1,131 @@
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>داشبورد شخصی من</title>
 <style>
-  body{
-    margin:0;
-    font-family:tahoma;
-    background:linear-gradient(135deg,#6dd5ed,#2193b0);
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
-    box-sizing:border-box;
+  body {
+    margin: 0;
+    font-family: Tahoma, sans-serif;
+    background: linear-gradient(135deg, #6dd5ed, #2193b0);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
   }
-  .card{
-    background:white;
-    border-radius:20px;
-    padding:30px 25px;
-    width:100%;
-    max-width:340px;
-    box-shadow:0 10px 30px rgba(0,0,0,.2);
+  .card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 30px 25px;
+    width: 100%;
+    max-width: 360px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   }
-  .card h2{
-    text-align:center;
-    color:#2193b0;
-    margin-bottom:25px;
+  .card h2 {
+    text-align: center;
+    color: #2193b0;
+    margin-bottom: 25px;
+    font-size: 22px;
   }
-  label{
-    display:block;
-    font-size:14px;
-    color:#555;
-    margin-bottom:6px;
+  .logo {
+    display: block;
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 15px auto;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   }
-  select, input{
-    width:100%;
-    padding:10px;
-    margin-bottom:18px;
-    border:1px solid #ddd;
-    border-radius:10px;
-    font-size:15px;
-    box-sizing:border-box;
-    font-family:tahoma;
+  label {
+    display: block;
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 6px;
+    font-weight: bold;
   }
-  .captcha-box{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    background:#f2f8fa;
-    border-radius:10px;
-    padding:10px;
-    margin-bottom:18px;
-    justify-content:space-between;
+  select, input {
+    width: 100%;
+    padding: 11px 12px;
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 14px;
+    box-sizing: border-box;
+    font-family: Tahoma, sans-serif;
+    outline: none;
+    transition: border-color 0.3s;
   }
-  .captcha-question{
-    font-size:16px;
-    font-weight:bold;
-    color:#2193b0;
+  select:focus, input:focus {
+    border-color: #2193b0;
   }
-  button{
-    width:100%;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    background:#2193b0;
-    color:white;
-    font-size:16px;
-    cursor:pointer;
-    font-family:tahoma;
+  .captcha-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f2f8fa;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 16px;
+    justify-content: space-between;
+    border: 1px solid #e1eef2;
   }
-  button:hover{
-    background:#186a80;
+  .captcha-question {
+    font-size: 15px;
+    font-weight: bold;
+    color: #2193b0;
   }
-  #error{
-    color:#e74c3c;
-    font-size:13px;
-    text-align:center;
-    min-height:18px;
-    margin-top:10px;
+  button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #2193b0;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: Tahoma, sans-serif;
+    transition: background 0.3s, transform 0.1s;
+  }
+  button:hover {
+    background: #186a80;
+  }
+  button:active {
+    transform: scale(0.98);
+  }
+  #error {
+    color: #e74c3c;
+    font-size: 13px;
+    text-align: center;
+    min-height: 20px;
+    margin-top: 10px;
+    font-weight: bold;
   }
 </style>
 </head>
 <body>
 
 <div class="card">
+  <img class="logo" src="IMG_9230.jpeg" alt="لوگو" onerror="this.style.display='none'">
   <h2>ورود به داشبورد</h2>
 
-  <label>ملیت</label>
+  <label for="nationality">ملیت</label>
   <select id="nationality">
     <option>ایران</option>
   </select>
 
-  <label>کد ملی</label>
-  <input type="text" id="code" maxlength="10" inputmode="numeric">
+  <label for="code">کد ملی</label>
+  <input type="text" id="code" maxlength="10" inputmode="numeric" placeholder="کد ملی ۱۰ رقمی">
 
-  <label>رمز عبور</label>
-  <input type="password" id="password">
+  <label for="password">رمز عبور</label>
+  <input type="password" id="password" placeholder="رمز عبور خود را وارد کنید">
 
   <div class="captcha-box">
     <span class="captcha-question" id="captchaQuestion"></span>
-    <input type="text" id="captchaAnswer" style="margin:0;width:60px;text-align:center;">
+    <input type="text" id="captchaAnswer" style="margin:0; width:70px; text-align:center;" placeholder="جواب">
   </div>
 
   <button onclick="login()">ورود</button>
@@ -112,27 +136,40 @@
   const MY_CODE = "1920503889";
   const MY_PASSWORD = "12345";
 
-  let num1 = Math.floor(Math.random()*10)+1;
-  let num2 = Math.floor(Math.random()*10)+1;
+  // تولید کپچای تصادفی ساده
+  let num1 = Math.floor(Math.random() * 10) + 1;
+  let num2 = Math.floor(Math.random() * 10) + 1;
   document.getElementById('captchaQuestion').textContent = num1 + " + " + num2 + " = ؟";
 
-  function login(){
+  function login() {
     const code = document.getElementById('code').value.trim();
     const pass = document.getElementById('password').value.trim();
     const captcha = document.getElementById('captchaAnswer').value.trim();
     const errorBox = document.getElementById('error');
 
-    if(parseInt(captcha) !== (num1+num2)){
-      errorBox.textContent = "پاسخ عبارت امنیتی اشتباهه";
+    // پاک کردن خطای قبلی
+    errorBox.textContent = "";
+
+    if (captcha === "" || parseInt(captcha) !== (num1 + num2)) {
+      errorBox.textContent = "پاسخ عبارت امنیتی اشتباه است.";
       return;
     }
-    if(code === MY_CODE && pass === MY_PASSWORD){
+
+    if (code === MY_CODE && pass === MY_PASSWORD) {
       window.location.href = "dashboard.html";
     } else {
-      errorBox.textContent = "کد ملی یا رمز عبور اشتباهه";
+      errorBox.textContent = "کد ملی یا رمز عبور اشتباه است.";
     }
   }
+
+  // امکان ورود با زدن کلید Enter روی کیبورد
+  document.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+      login();
+    }
+  });
 </script>
 
 </body>
 </html>
+
