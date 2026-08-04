@@ -3,188 +3,119 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ورود به سامانه</title>
+<title>داشبورد کاربری - سامانه سنجش</title>
 <style>
   body {
     margin: 0;
     font-family: Tahoma, sans-serif;
-    background: linear-gradient(135deg, #6dd5ed, #2193b0);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    box-sizing: border-box;
+    background-color: #f4f7f6;
+    color: #333;
   }
-  .card {
-    background: #ffffff;
-    border-radius: 20px;
-    padding: 30px 25px;
-    width: 100%;
-    max-width: 380px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-  }
-  /* استایل کادر سبز راهنما در بالای صفحه */
-  .notice-box {
-    background-color: #e2f2f0;
-    border: 1px solid #b8e2de;
-    border-radius: 12px;
-    padding: 12px 15px;
-    margin-bottom: 20px;
-    font-size: 13px;
-    color: #1a5c54;
-    line-height: 1.6;
-    text-align: right;
-  }
-  .card h2 {
-    text-align: center;
-    color: #2193b0;
-    margin-bottom: 20px;
-    font-size: 20px;
-  }
-  /* عکس هم‌اندازه با کادر بالا، مستطیلی و با لبه‌های گرد */
-  .logo {
-    display: block;
-    width: 100%;
-    height: auto;
-    max-height: 160px;
-    margin: 0 auto 15px auto;
-    object-fit: cover;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  }
-  label {
-    display: block;
-    font-size: 13px;
-    color: #555;
-    margin-bottom: 6px;
-    font-weight: bold;
-  }
-  select, input {
-    width: 100%;
-    padding: 11px 12px;
-    margin-bottom: 16px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    font-size: 14px;
-    box-sizing: border-box;
-    font-family: Tahoma, sans-serif;
-    outline: none;
-    transition: border-color 0.3s;
-  }
-  select:focus, input:focus {
-    border-color: #2193b0;
-  }
-  .captcha-box {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: #f2f8fa;
-    border-radius: 10px;
-    padding: 10px;
-    margin-bottom: 16px;
-    justify-content: space-between;
-    border: 1px solid #e1eef2;
-  }
-  .captcha-question {
-    font-size: 15px;
-    font-weight: bold;
-    color: #2193b0;
-  }
-  button {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 10px;
-    background: #2193b0;
+  /* هدر بالای صفحه */
+  header {
+    background-color: #2193b0;
     color: white;
-    font-size: 16px;
-    font-weight: bold;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  header h1 {
+    margin: 0;
+    font-size: 18px;
+  }
+  .logout-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
     cursor: pointer;
     font-family: Tahoma, sans-serif;
-    transition: background 0.3s, transform 0.1s;
-  }
-  button:hover {
-    background: #186a80;
-  }
-  button:active {
-    transform: scale(0.98);
-  }
-  #error {
-    color: #e74c3c;
     font-size: 13px;
-    text-align: center;
-    min-height: 20px;
-    margin-top: 10px;
+  }
+  .logout-btn:hover {
+    background-color: #c0392b;
+  }
+  /* بدنه اصلی داشبورد */
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 0 15px;
+  }
+  .welcome-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+    border-right: 5px solid #2193b0;
+  }
+  .welcome-card h3 {
+    margin-top: 0;
+    color: #2193b0;
+  }
+  .info-box {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  }
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+  }
+  .info-row:last-child {
+    border-bottom: none;
+  }
+  .info-title {
+    color: #666;
     font-weight: bold;
+  }
+  .info-value {
+    color: #222;
   }
 </style>
 </head>
 <body>
 
-<div class="card">
-  <div class="notice-box">
-    توضیحات: داوطلب گرامی در صورتی که در ادوار گذشته حساب کاربری ایجاد نموده اید لزوماً با کد ملی/شناسه یکتا و رمز عبور به سامانه وارد شوید و نیازی به ایجاد حساب کاربری مجدد نمی‌باشد.
+  <header>
+    <h1>سامانه جامع آزمون‌های سراسری</h1>
+    <button class="logout-btn" onclick="logout()">خروج از سامانه</button>
+  </header>
+
+  <div class="container">
+    <div class="welcome-card">
+      <h3>خوش آمدید</h3>
+      <p>شما با موفقیت وارد حساب کاربری خود شده‌اید. از طریق این پنل می‌توانید وضعیت آزمون‌ها و اطلاعات ثبت‌نامی خود را مشاهده کنید.</p>
+    </div>
+
+    <div class="info-box">
+      <div class="info-row">
+        <span class="info-title">نام و نام خانوادگی:</span>
+        <span class="info-value">داوطلب گرامی</span>
+      </div>
+      <div class="info-row">
+        <span class="info-title">کد ملی:</span>
+        <span class="info-value">1920503889</span>
+      </div>
+      <div class="info-row">
+        <span class="info-title">وضعیت حساب:</span>
+        <span class="info-value" style="color: #27ae60; font-weight: bold;">تایید شده و فعال</span>
+      </div>
+    </div>
   </div>
 
-  <img class="logo" src="IMG_9312.jpeg" alt="لوگو" onerror="this.style.display='none'">
-  
-  <h2>ورود به سامانه</h2>
-
-  <label for="nationality">ملیت</label>
-  <select id="nationality">
-    <option>ایران</option>
-  </select>
-
-  <label for="code">کد ملی</label>
-  <input type="text" id="code" maxlength="10" inputmode="numeric" placeholder="کد ملی ۱۰ رقمی">
-
-  <label for="password">رمز عبور</label>
-  <input type="password" id="password" placeholder="رمز عبور خود را وارد کنید">
-
-  <div class="captcha-box">
-    <span class="captcha-question" id="captchaQuestion"></span>
-    <input type="text" id="captchaAnswer" style="margin:0; width:70px; text-align:center;" placeholder="جواب">
-  </div>
-
-  <button onclick="login()">ورود</button>
-  <div id="error"></div>
-</div>
-
-<script>
-  const MY_CODE = "1920503889";
-  const MY_PASSWORD = "12345";
-
-  let num1 = Math.floor(Math.random() * 10) + 1;
-  let num2 = Math.floor(Math.random() * 10) + 1;
-  document.getElementById('captchaQuestion').textContent = num1 + " + " + num2 + " = ؟";
-
-  function login() {
-    const code = document.getElementById('code').value.trim();
-    const pass = document.getElementById('password').value.trim();
-    const captcha = document.getElementById('captchaAnswer').value.trim();
-    const errorBox = document.getElementById('error');
-
-    errorBox.textContent = "";
-
-    if (captcha === "" || parseInt(captcha) !== (num1 + num2)) {
-      errorBox.textContent = "پاسخ عبارت امنیتی اشتباه است.";
-      return;
+  <script>
+    function logout() {
+      // بازگشت به صفحه ورود
+      window.location.href = "index.html";
     }
-
-    if (code === MY_CODE && pass === MY_PASSWORD) {
-      window.location.href = "dashboard.html";
-    } else {
-      errorBox.textContent = "کد ملی یا رمز عبور اشتباه است.";
-    }
-  }
-
-  document.addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-      login();
-    }
-  });
-</script>
+  </script>
 
 </body>
 </html>
