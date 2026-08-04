@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>داشبورد شخصی من</title>
+<style>
+  body{
+    margin:0;
+    font-family:tahoma;
+    background:#f4f4f4;
+    padding:20px;
+  }
+  h2{
+    text-align:center;
+  }
+  .file-list{
+    max-width:500px;
+    margin:20px auto;
+  }
+  .file-item{
+    background:white;
+    padding:15px;
+    margin-bottom:10px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,.1);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .file-item a{
+    text-decoration:none;
+    color:#333;
+    font-size:15px;
+  }
+  .file-item a:hover{
+    color:#4CAF50;
+  }
+  .logout{
+    display:block;
+    max-width:120px;
+    margin:0 auto 20px auto;
+    padding:8px;
+    text-align:center;
+    background:#e74c3c;
+    color:white;
+    border-radius:8px;
+    text-decoration:none;
+  }
+</style>
+</head>
+<body>
+
+<a class="logout" href="index.html">خروج</a>
+<h2>فایل‌های من</h2>
+
+<div class="file-list" id="fileList"></div>
+
+<script>
+  // 🔧 اینجا اسم و آدرس فایل‌های PDF خودتو اضافه کن
+  // آدرس = مسیر فایل داخل همون پوشه ریپو (مثلا پوشه files/جزوه1.pdf)
+  const files = [
+    { name: "جزوه فارسی - جلسه اول", url: "files/farsi1.pdf" },
+    { name: "جزوه فارسی - جلسه دوم", url: "files/farsi2.pdf" },
+    { name: "نمونه سوالات", url: "files/sample-questions.pdf" }
+  ];
+
+  const list = document.getElementById('fileList');
+  files.forEach(f => {
+    const item = document.createElement('div');
+    item.className = 'file-item';
+    item.innerHTML = `<a href="${f.url}" target="_blank">📄 ${f.name}</a>`;
+    list.appendChild(item);
+  });
+</script>
+
+</body>
+</html>
+
+
+
+
