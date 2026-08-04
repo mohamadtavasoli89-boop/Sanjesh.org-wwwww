@@ -2,65 +2,91 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>ورود</title>
+<title>داشبورد شخصی من</title>
 <style>
-body{
-font-family:tahoma;
-background:#f2f2f2;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-margin:0;
-}
-.box{
-background:white;
-padding:30px;
-border-radius:15px;
-box-shadow:0 0 15px rgba(0,0,0,.2);
-text-align:center;
-width:320px;
-}
-input{
-width:100%;
-padding:10px;
-margin:10px 0;
-font-size:18px;
-}
-button{
-width:100%;
-padding:10px;
-background:#0066cc;
-color:white;
-border:none;
-border-radius:8px;
-font-size:18px;
-}
+  body{
+    margin:0;
+    font-family:tahoma;
+    background:#f4f4f4;
+  }
+  .login{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+  }
+  .box{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 0 15px rgba(0,0,0,.2);
+    text-align:center;
+    width:280px;
+  }
+  .box img{
+    width:80px;
+    margin-bottom:15px;
+  }
+  input{
+    width:90%;
+    padding:10px;
+    margin:10px 0;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:16px;
+    text-align:center;
+  }
+  button{
+    width:95%;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    background:#4CAF50;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+  }
+  button:hover{
+    background:#45a049;
+  }
+  #error{
+    color:red;
+    font-size:13px;
+    height:16px;
+  }
 </style>
 </head>
 <body>
 
-<div class="box">
-<h2>ورود به سامانه</h2>
-
-<input id="meli" type="text" placeholder="کد ملی">
-
-<button onclick="login()">ورود</button>
-
-<p id="msg"></p>
+<div class="login">
+  <div class="box">
+    <img src="IMG_9230.jpeg" alt="لوگو" onerror="this.style.display='none'">
+    <h3>ورود به داشبورد</h3>
+    <input type="text" id="code" placeholder="کد ملی" maxlength="10" inputmode="numeric">
+    <div id="error"></div>
+    <button onclick="login()">ورود</button>
+  </div>
 </div>
 
 <script>
-function login(){
-var code=document.getElementById("meli").value;
+  const MY_CODE = "1920503889";
 
-if(code==="1920503889"){
-window.location.href="https://google.com";
-}else{
-document.getElementById("msg").innerHTML="کد ملی اشتباه است";
-}
-}
+  function login(){
+    const input = document.getElementById('code').value.trim();
+    const errorBox = document.getElementById('error');
+
+    if(input === MY_CODE){
+      window.location.href = "dashboard.html";
+    } else {
+      errorBox.textContent = "کد ملی اشتباهه";
+    }
+  }
+
+  document.getElementById('code').addEventListener('keydown', function(e){
+    if(e.key === 'Enter') login();
+  });
 </script>
 
 </body>
 </html>
+
