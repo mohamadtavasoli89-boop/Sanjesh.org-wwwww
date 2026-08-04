@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -33,11 +32,10 @@
   }
   .logo {
     display: block;
-    width: 70px;
-    height: 70px;
+    max-width: 100px; /* حداکثر عرض عکس */
+    height: auto;     /* ارتفاع به صورت خودکار متناسب با عکس تنظیم می‌شود */
     margin: 0 auto 15px auto;
-    object-fit: cover;
-    border-radius: 50%;
+    border-radius: 10px; /* گوشه‌های عکس کمی گرد می‌شود (اگر می‌خواهید کاملاً تیز باشد این خط را پاک کنید) */
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   }
   label {
@@ -170,3 +168,4 @@
 
 </body>
 </html>
+
