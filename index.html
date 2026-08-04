@@ -7,86 +7,46 @@
   body{
     margin:0;
     font-family:tahoma;
-    background:#f4f4f4;
-  }
-  .login{
+    background:linear-gradient(135deg,#6dd5ed,#2193b0);
+    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    height:100vh;
+    padding:20px;
+    box-sizing:border-box;
   }
-  .box{
+  .card{
     background:white;
-    padding:30px;
-    border-radius:15px;
-    box-shadow:0 0 15px rgba(0,0,0,.2);
+    border-radius:20px;
+    padding:30px 25px;
+    width:100%;
+    max-width:340px;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
+  }
+  .card h2{
     text-align:center;
-    width:280px;
+    color:#2193b0;
+    margin-bottom:25px;
   }
-  .box img{
-    width:80px;
-    margin-bottom:15px;
+  label{
+    display:block;
+    font-size:14px;
+    color:#555;
+    margin-bottom:6px;
   }
-  input{
-    width:90%;
+  select, input{
+    width:100%;
     padding:10px;
-    margin:10px 0;
-    border-radius:8px;
-    border:1px solid #ccc;
-    font-size:16px;
-    text-align:center;
+    margin-bottom:18px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    font-size:15px;
+    box-sizing:border-box;
+    font-family:tahoma;
   }
-  button{
-    width:95%;
-    padding:10px;
-    border:none;
-    border-radius:8px;
-    background:#4CAF50;
-    color:white;
-    font-size:16px;
-    cursor:pointer;
-  }
-  button:hover{
-    background:#45a049;
-  }
-  #error{
-    color:red;
-    font-size:13px;
-    height:16px;
-  }
-</style>
-</head>
-<body>
-
-<div class="login">
-  <div class="box">
-    <img src="IMG_9230.jpeg" alt="لوگو" onerror="this.style.display='none'">
-    <h3>ورود به داشبورد</h3>
-    <input type="text" id="code" placeholder="کد ملی" maxlength="10" inputmode="numeric">
-    <div id="error"></div>
-    <button onclick="login()">ورود</button>
-  </div>
-</div>
-
-<script>
-  const MY_CODE = "1920503889";
-
-  function login(){
-    const input = document.getElementById('code').value.trim();
-    const errorBox = document.getElementById('error');
-
-    if(input === MY_CODE){
-      window.location.href = "dashboard.html";
-    } else {
-      errorBox.textContent = "کد ملی اشتباهه";
-    }
-  }
-
-  document.getElementById('code').addEventListener('keydown', function(e){
-    if(e.key === 'Enter') login();
-  });
-</script>
-
-</body>
-</html>
+  .captcha-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#f2f8f
 
