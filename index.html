@@ -21,22 +21,34 @@
     border-radius: 20px;
     padding: 30px 25px;
     width: 100%;
-    max-width: 360px;
+    max-width: 380px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  }
+  /* استایل کادر سبز راهنما در بالای صفحه */
+  .notice-box {
+    background-color: #e2f2f0;
+    border: 1px solid #b8e2de;
+    border-radius: 12px;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: #1a5c54;
+    line-height: 1.6;
+    text-align: right;
   }
   .card h2 {
     text-align: center;
     color: #2193b0;
-    margin-bottom: 25px;
-    font-size: 22px;
+    margin-bottom: 20px;
+    font-size: 20px;
   }
+  /* نمایش کامل و اندازه مناسب لوگو بدون برش دایره‌ای */
   .logo {
     display: block;
-    max-width: 100px; /* حداکثر عرض عکس */
-    height: auto;     /* ارتفاع به صورت خودکار متناسب با عکس تنظیم می‌شود */
+    max-width: 120px;
+    height: auto;
     margin: 0 auto 15px auto;
-    border-radius: 10px; /* گوشه‌های عکس کمی گرد می‌شود (اگر می‌خواهید کاملاً تیز باشد این خط را پاک کنید) */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    object-fit: contain;
   }
   label {
     display: block;
@@ -108,7 +120,12 @@
 <body>
 
 <div class="card">
+  <div class="notice-box">
+    توضیحات: داوطلب گرامی در صورتی که در ادوار گذشته حساب کاربری ایجاد نموده اید لزوماً با کد ملی/شناسه یکتا و رمز عبور به سامانه وارد شوید و نیازی به ایجاد حساب کاربری مجدد نمی‌باشد.
+  </div>
+
   <img class="logo" src="IMG_9312.jpeg" alt="لوگو" onerror="this.style.display='none'">
+  
   <h2>ورود به سامانه</h2>
 
   <label for="nationality">ملیت</label>
