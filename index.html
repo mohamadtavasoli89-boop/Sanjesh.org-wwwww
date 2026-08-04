@@ -48,5 +48,92 @@
     display:flex;
     align-items:center;
     gap:10px;
-    background:#f2f8f
+    background:#f2f8fa;
+    border-radius:10px;
+    padding:10px;
+    margin-bottom:18px;
+    justify-content:space-between;
+  }
+  .captcha-question{
+    font-size:16px;
+    font-weight:bold;
+    color:#2193b0;
+  }
+  button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#2193b0;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    font-family:tahoma;
+  }
+  button:hover{
+    background:#186a80;
+  }
+  #error{
+    color:#e74c3c;
+    font-size:13px;
+    text-align:center;
+    min-height:18px;
+    margin-top:10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h2>ورود به داشبورد</h2>
+
+  <label>ملیت</label>
+  <select id="nationality">
+    <option>ایران</option>
+  </select>
+
+  <label>کد ملی</label>
+  <input type="text" id="code" maxlength="10" inputmode="numeric">
+
+  <label>رمز عبور</label>
+  <input type="password" id="password">
+
+  <div class="captcha-box">
+    <span class="captcha-question" id="captchaQuestion"></span>
+    <input type="text" id="captchaAnswer" style="margin:0;width:60px;text-align:center;">
+  </div>
+
+  <button onclick="login()">ورود</button>
+  <div id="error"></div>
+</div>
+
+<script>
+  const MY_CODE = "1920503889";
+  const MY_PASSWORD = "12345";
+
+  let num1 = Math.floor(Math.random()*10)+1;
+  let num2 = Math.floor(Math.random()*10)+1;
+  document.getElementById('captchaQuestion').textContent = num1 + " + " + num2 + " = ؟";
+
+  function login(){
+    const code = document.getElementById('code').value.trim();
+    const pass = document.getElementById('password').value.trim();
+    const captcha = document.getElementById('captchaAnswer').value.trim();
+    const errorBox = document.getElementById('error');
+
+    if(parseInt(captcha) !== (num1+num2)){
+      errorBox.textContent = "پاسخ عبارت امنیتی اشتباهه";
+      return;
+    }
+    if(code === MY_CODE && pass === MY_PASSWORD){
+      window.location.href = "dashboard.html";
+    } else {
+      errorBox.textContent = "کد ملی یا رمز عبور اشتباهه";
+    }
+  }
+</script>
+
+</body>
+</html>
+
 
