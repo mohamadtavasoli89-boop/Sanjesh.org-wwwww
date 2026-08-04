@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>داشبورد شخصی من</title>
+<title>ورود به سامانه</title>
 <style>
   body {
     margin: 0;
@@ -109,8 +110,8 @@
 <body>
 
 <div class="card">
-  <img class="logo" src="IMG_9230.jpeg" alt="لوگو" onerror="this.style.display='none'">
-  <h2>ورود به داشبورد</h2>
+  <img class="logo" src="IMG_9312.jpeg" alt="لوگو" onerror="this.style.display='none'">
+  <h2>ورود به سامانه</h2>
 
   <label for="nationality">ملیت</label>
   <select id="nationality">
@@ -136,7 +137,6 @@
   const MY_CODE = "1920503889";
   const MY_PASSWORD = "12345";
 
-  // تولید کپچای تصادفی ساده
   let num1 = Math.floor(Math.random() * 10) + 1;
   let num2 = Math.floor(Math.random() * 10) + 1;
   document.getElementById('captchaQuestion').textContent = num1 + " + " + num2 + " = ؟";
@@ -147,7 +147,6 @@
     const captcha = document.getElementById('captchaAnswer').value.trim();
     const errorBox = document.getElementById('error');
 
-    // پاک کردن خطای قبلی
     errorBox.textContent = "";
 
     if (captcha === "" || parseInt(captcha) !== (num1 + num2)) {
@@ -162,7 +161,6 @@
     }
   }
 
-  // امکان ورود با زدن کلید Enter روی کیبورد
   document.addEventListener("keypress", function(event) {
     if (event.key === "Enter") {
       login();
@@ -172,4 +170,3 @@
 
 </body>
 </html>
-
