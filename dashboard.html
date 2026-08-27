@@ -2,183 +2,353 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>داشبورد شخصی من</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ورود به سامانه</title>
 <style>
-  body{
-    margin:0;
-    font-family:tahoma;
-    background:#f4f4f4;
+  body {
+    margin: 0;
+    font-family: Tahoma, sans-serif;
+    background: linear-gradient(135deg, #6dd5ed, #2193b0);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
   }
-  .topbar{
-    background:white;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:14px 18px;
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
-    position:sticky;
-    top:0;
-    z-index:10;
+  .card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 30px 25px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
   }
-  .menu-btn{
-    background:none;
-    border:none;
-    font-size:26px;
-    cursor:pointer;
-    line-height:1;
-    padding:4px 8px;
+  .notice-box {
+    background-color: #e2f2f0;
+    border: 1px solid #b8e2de;
+    border-radius: 12px;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: #1a5c54;
+    line-height: 1.6;
+    text-align: right;
   }
-  .topbar-title{
-    font-size:16px;
-    font-weight:bold;
-    color:#333;
+  .card h2 {
+    text-align: center;
+    color: #2193b0;
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+  .logo {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 140px;
+    margin: 0 auto 15px auto;
+    object-fit: contain; /* اصلاح شده برای نمایش کامل و بدون برش تصویر */
+    background-color: #ffffff;
+    border-radius: 12px;
+  }
+  label {
+    display: block;
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 6px;
+    font-weight: bold;
+  }
+  select, input {
+    width: 100%;
+    padding: 11px 12px;
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 14px;
+    box-sizing: border-box;
+    font-family: Tahoma, sans-serif;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  select:focus, input:focus {
+    border-color: #2193b0;
+  }
+  .captcha-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f2f8fa;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 16px;
+    justify-content: space-between;
+    border: 1px solid #e1eef2;
+  }
+  .captcha-question {
+    font-size: 15px;
+    font-weight: bold;
+    color: #2193b0;
+  }
+  button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #2193b0;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: Tahoma, sans-serif;
+    transition: background 0.3s, transform 0.1s;
+  }
+  button:hover {
+    background: #186a80;
+  }
+  button:active {
+    transform: scale(0.98);
+  }
+  #error {
+    color: #e74c3c;
+    font-size: 13px;
+    text-align: center;
+    min-height: 20px;
+    margin-top: 10px;
+    font-weight: bold;
   }
 
-  .overlay{
-    display:none;
-    position:fixed;
-    top:0; left:0; right:0; bottom:0;
-    background:rgba(0,0,0,.4);
-    z-index:20;
+  /* استایل‌های مربوط به پنل داخلی و کارت‌ها */
+  .panel-section {
+    display: none;
   }
-  .overlay.show{
-    display:block;
+  .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
   }
-  .side-panel{
-    position:fixed;
-    top:0;
-    right:-280px;
-    width:260px;
-    height:100%;
-    background:white;
-    box-shadow:-2px 0 10px rgba(0,0,0,.2);
-    transition:right .25s ease;
-    z-index:30;
-    padding:25px 20px;
-    text-align:center;
+  .logout-btn {
+    background: #ffffff;
+    border: 1px solid #e57373;
+    color: #d32f2f;
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
   }
-  .side-panel.show{
-    right:0;
+  .inner-card {
+    background: #f9fbfd;
+    border: 1px solid #e1eef2;
+    border-radius: 14px;
+    padding: 15px;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
   }
-  .side-panel img{
-    width:90px;
-    height:90px;
-    border-radius:50%;
-    object-fit:cover;
-    box-shadow:0 0 10px rgba(0,0,0,.15);
-    margin-bottom:12px;
+  .inner-card.green-accent::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 4px;
+    background-color: #4db6ac;
   }
-  .side-panel .name{
-    font-size:17px;
-    font-weight:bold;
-    color:#333;
+  .inner-card.blue-accent::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 4px;
+    background-color: #3f51b5;
   }
-  .side-panel .desc{
-    font-size:14px;
-    color:#777;
-    margin-top:4px;
-    margin-bottom:8px;
+  .inner-card-title {
+    font-size: 15px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
   }
-  .side-panel .code{
-    font-size:13px;
-    color:#999;
-    margin-bottom:25px;
+  .inner-card-desc {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 12px;
+    line-height: 1.4;
   }
-  .close-btn{
-    position:absolute;
-    top:14px;
-    left:14px;
-    background:none;
-    border:none;
-    font-size:22px;
-    cursor:pointer;
-    color:#888;
+  .inner-card-btn {
+    display: block;
+    width: 100%;
+    padding: 9px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
   }
-  .logout{
-    display:block;
-    padding:10px;
-    text-align:center;
-    background:#e74c3c;
-    color:white;
-    border-radius:8px;
-    text-decoration:none;
-    font-size:14px;
+  .btn-green { background: #4db6ac; }
+  .btn-blue { background: #3f51b5; }
+  
+  .sub-menu {
+    display: none;
   }
-
-  .content{
-    padding:20px;
+  .back-link {
+    display: inline-block;
+    color: #3f51b5;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 10px;
+    text-decoration: none;
   }
-  h2{
-    text-align:center;
-  }
-  .file-list{
-    max-width:500px;
-    margin:20px auto;
-  }
-  .file-item{
-    background:white;
-    padding:15px;
-    margin-bottom:10px;
-    border-radius:10px;
-    box-shadow:0 0 10px rgba(0,0,0,.1);
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-  }
-  .file-item a{
-    text-decoration:none;
-    color:#333;
-    font-size:15px;
-  }
-  .file-item a:hover{
-    color:#4CAF50;
+  .footer-text {
+    text-align: center;
+    font-size: 11px;
+    color: #777;
+    margin-top: 15px;
+    line-height: 1.5;
   }
 </style>
 </head>
 <body>
 
-<div class="topbar">
-  <button class="menu-btn" onclick="togglePanel()">☰</button>
-  <div class="topbar-title">داشبورد شخصی من</div>
-</div>
+<div class="card">
+  
+  <div id="loginSection">
+    <div class="notice-box">
+      توضیحات: داوطلب گرامی در صورتی که در ادوار گذشته حساب کاربری ایجاد نموده اید لزوماً با کد ملی/شناسه یکتا و رمز عبور به سامانه وارد شوید و نیازی به ایجاد حساب کاربری مجدد نمی‌باشد.
+    </div>
 
-<div class="overlay" id="overlay" onclick="togglePanel()"></div>
+    <img class="logo" src="IMG_9312.jpeg" alt="لوگو" onerror="this.style.display='none'">
+    
+    <h2>ورود به سامانه</h2>
 
-<div class="side-panel" id="sidePanel">
-  <button class="close-btn" onclick="togglePanel()">✕</button>
-  <img src="IMG_9286.jpeg" alt="عکس پروفایل" onerror="this.style.display='none'">
-  <div class="name">صاحبه توسلی پور</div>
-  <div class="desc">رشته تجربی</div>
-  <div class="code">کد ملی: 1920503889</div>
-  <a class="logout" href="index.html">خروج</a>
-</div>
+    <label for="nationality">ملیت</label>
+    <select id="nationality">
+      <option>ایران</option>
+    </select>
 
-<div class="content">
-  <h2>فایل‌های من</h2>
-  <div class="file-list" id="fileList"></div>
+    <label for="code">کد ملی</label>
+    <input type="text" id="code" maxlength="10" inputmode="numeric" placeholder="کد ملی ۱۰ رقمی">
+
+    <label for="password">رمز عبور</label>
+    <input type="password" id="password" placeholder="رمز عبور خود را وارد کنید">
+
+    <div class="captcha-box">
+      <span class="captcha-question" id="captchaQuestion"></span>
+      <input type="text" id="captchaAnswer" style="margin:0; width:70px; text-align:center;" placeholder="جواب">
+    </div>
+
+    <button onclick="login()">ورود</button>
+    <div id="error"></div>
+  </div>
+
+  <div id="mainPanel" class="panel-section">
+    <div class="panel-header">
+      <button class="logout-btn" onclick="logout()">خروج ←</button>
+      <span>☰</span>
+    </div>
+
+    <div class="inner-card green-accent">
+      <div class="inner-card-title">اطلاعات من</div>
+      <div class="inner-card-desc">مدیریت پروفایل و اطلاعات شخصی</div>
+      <button class="inner-card-btn btn-green">ورود ←</button>
+    </div>
+
+    <div class="inner-card blue-accent">
+      <div class="inner-card-title">سراسری و دانشجو معلم</div>
+      <div class="inner-card-desc">امور مربوط به آزمون سراسری، دانشجو-معلم و پذیرش بر اساس سوابق تحصیلی</div>
+      <button class="inner-card-btn btn-blue" onclick="showSubMenu()">ورود ←</button>
+    </div>
+  </div>
+
+  <div id="subMenu" class="panel-section">
+    <div class="panel-header">
+      <a class="back-link" onclick="backToMain()">← بازگشت</a>
+      <span>☰</span>
+    </div>
+
+    <div class="inner-card blue-accent">
+      <div class="inner-card-title">اعلام نتیجه رشته های دارای شرایط خاص</div>
+      <div class="inner-card-desc">نتایج رشته های شرایط خاص</div>
+      <button class="inner-card-btn btn-blue">ورود به بخش ←</button>
+    </div>
+
+    <div class="inner-card blue-accent">
+      <div class="inner-card-title">نقطه قبولی</div>
+      <div class="inner-card-desc">مشاهده حداقل نمرات قبولی</div>
+      <button class="inner-card-btn btn-blue">ورود به بخش ←</button>
+    </div>
+
+    <div class="inner-card blue-accent">
+      <div class="inner-card-title">کارنامه نهایی</div>
+      <div class="inner-card-desc">دریافت کارنامه نهایی آزمون</div>
+      <button class="inner-card-btn btn-blue">ورود به بخش ←</button>
+    </div>
+
+    <div class="footer-text">
+      تمامی حقوق برای سازمان سنجش آموزش کشور محفوظ می‌باشد ©<br>۱۴۰۴ | نسخه بتا
+    </div>
+  </div>
+
 </div>
 
 <script>
-  function togglePanel(){
-    document.getElementById('sidePanel').classList.toggle('show');
-    document.getElementById('overlay').classList.toggle('show');
+  const MY_CODE = "1920503889";
+  const MY_PASSWORD = "12345";
+
+  let num1 = Math.floor(Math.random() * 10) + 1;
+  let num2 = Math.floor(Math.random() * 10) + 1;
+  document.getElementById('captchaQuestion').textContent = num1 + " + " + num2 + " = ؟";
+
+  function login() {
+    const code = document.getElementById('code').value.trim();
+    const pass = document.getElementById('password').value.trim();
+    const captcha = document.getElementById('captchaAnswer').value.trim();
+    const errorBox = document.getElementById('error');
+
+    errorBox.textContent = "";
+
+    if (captcha === "" || parseInt(captcha) !== (num1 + num2)) {
+      errorBox.textContent = "پاسخ عبارت امنیتی اشتباه است.";
+      return;
+    }
+
+    if (code === MY_CODE && pass === MY_PASSWORD) {
+      document.getElementById('loginSection').style.display = 'none';
+      document.getElementById('mainPanel').style.display = 'block';
+    } else {
+      errorBox.textContent = "کد ملی یا رمز عبور اشتباه است.";
+    }
   }
 
-  const files = [
-    { name: "کنکوریام ۰۳", url: "@konkooriam_03.pdf" }
-  ];
+  function logout() {
+    document.getElementById('mainPanel').style.display = 'none';
+    document.getElementById('subMenu').style.display = 'none';
+    document.getElementById('loginSection').style.display = 'block';
+    document.getElementById('code').value = '';
+    document.getElementById('password').value = '';
+    document.getElementById('captchaAnswer').value = '';
+  }
 
-  const list = document.getElementById('fileList');
-  files.forEach(f => {
-    const item = document.createElement('div');
-    item.className = 'file-item';
-    item.innerHTML = `<a href="${f.url}" target="_blank">📄 ${f.name}</a>`;
-    list.appendChild(item);
+  function showSubMenu() {
+    document.getElementById('mainPanel').style.display = 'none';
+    document.getElementById('subMenu').style.display = 'block';
+  }
+
+  function backToMain() {
+    document.getElementById('subMenu').style.display = 'none';
+    document.getElementById('mainPanel').style.display = 'block';
+  }
+
+  document.addEventListener("keypress", function(event) {
+    if (event.key === "Enter" && document.getElementById('loginSection').style.display !== 'none') {
+      login();
+    }
   });
 </script>
 
 </body>
 </html>
+
 
 
 
