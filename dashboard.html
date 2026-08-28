@@ -1,5 +1,6 @@
-
-
+برای اینکه با زدن روی دکمه «ورود به بخش» در قسمت کارنامه نهایی، دقیقاً صفحه و متن مورد نظر شما (مشابه تصویر دوم) به صورت پویا و در همان فرم بارگذاری شود، کدهای زیر را به‌روزرسانی کردم.
+در این نسخه یک بخش جدید اضافه شده است که با کلیک روی دکمه‌ی ذکر شده ظاهر می‌شود و قابلیت بازگشت به منوی قبلی را نیز دارد.
+کد کامل و به‌روزرسانی‌شده:
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -47,8 +48,8 @@
   .logo {
     display: block;
     width: 100%;
-    height: auto; /* تنظیم خودکار ارتفاع بر اساس تناسب واقعی تصویر */
-    max-height: none; /* برداشتن محدودیت ارتفاع تا متن‌های پایین عکس کامل دیده شوند */
+    height: auto;
+    max-height: none;
     margin: 0 auto 15px auto;
     object-fit: contain;
     border-radius: 12px;
@@ -119,7 +120,7 @@
     font-weight: bold;
   }
 
-  /* استایل‌های مربوط به پنل داخلی و کارت‌ها */
+  /* استایل‌های پنل‌ها */
   .panel-section {
     display: none;
   }
@@ -188,9 +189,6 @@
   .btn-green { background: #4db6ac; }
   .btn-blue { background: #3f51b5; }
   
-  .sub-menu {
-    display: none;
-  }
   .back-link {
     display: inline-block;
     color: #3f51b5;
@@ -207,18 +205,83 @@
     margin-top: 15px;
     line-height: 1.5;
   }
+
+  /* استایل‌های اختصاصی صفحه سابقه تحصیلی (مطابق تصویر دوم) */
+  .welcome-user {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: right;
+  }
+  .welcome-desc {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    text-align: right;
+  }
+  .action-banner-btn {
+    background: #2ec4b6;
+    color: white;
+    padding: 14px;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(46,196,182,0.3);
+  }
+  .section-title-custom {
+    font-size: 14px;
+    font-weight: bold;
+    color: #6b21a8;
+    margin-bottom: 12px;
+    text-align: right;
+  }
+  .announcement-card {
+    background: #ffffff;
+    border: 1px solid #e57373;
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    margin-bottom: 15px;
+    text-align: right;
+  }
+  .announcement-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #111;
+    margin-bottom: 10px;
+  }
+  .announcement-subtitle {
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 6px;
+  }
+  .announcement-list {
+    font-size: 11px;
+    color: #4b5563;
+    line-height: 1.7;
+    padding-right: 18px;
+    margin: 0;
+  }
+  .announcement-list li {
+    margin-bottom: 5px;
+  }
 </style>
 </head>
 <body>
 
 <div class="card">
   
+  <!-- بخش فرم ورود -->
   <div id="loginSection">
     <div class="notice-box">
       توضیحات: داوطلب گرامی در صورتی که در ادوار گذشته حساب کاربری ایجاد نموده اید لزوماً با کد ملی/شناسه یکتا و رمز عبور به سامانه وارد شوید و نیازی به ایجاد حساب کاربری مجدد نمی‌باشد.
     </div>
 
-    <!-- تغییر نام فایل عکس به IMG_9313.jpeg -->
     <img class="logo" src="IMG_9313.jpeg" alt="لوگو" onerror="this.style.display='none'">
     
     <h2>ورود به سامانه</h2>
@@ -243,6 +306,7 @@
     <div id="error"></div>
   </div>
 
+  <!-- منوی اصلی پنل بعد از ورود -->
   <div id="mainPanel" class="panel-section">
     <div class="panel-header">
       <button class="logout-btn" onclick="logout()">خروج ←</button>
@@ -262,6 +326,7 @@
     </div>
   </div>
 
+  <!-- زیرمنو -->
   <div id="subMenu" class="panel-section">
     <div class="panel-header">
       <a class="back-link" onclick="backToMain()">← بازگشت</a>
@@ -283,7 +348,47 @@
     <div class="inner-card blue-accent">
       <div class="inner-card-title">کارنامه نهایی</div>
       <div class="inner-card-desc">دریافت کارنامه نهایی آزمون</div>
-      <button class="inner-card-btn btn-blue">ورود به بخش ←</button>
+      <!-- اتصال دکمه به تابع نمایش صفحه سابقه تحصیلی -->
+      <button class="inner-card-btn btn-blue" onclick="showTranscriptPage()">ورود به بخش ←</button>
+    </div>
+
+    <div class="footer-text">
+      تمامی حقوق برای سازمان سنجش آموزش کشور محفوظ می‌باشد ©<br>۱۴۰۴ | نسخه بتا
+    </div>
+  </div>
+
+  <!-- صفحه جدید سابقه تحصیلی (مطابق تصویر دوم) -->
+  <div id="transcriptSection" class="panel-section">
+    <div class="panel-header">
+      <a class="back-link" onclick="backToSubMenu()">← بازگشت</a>
+      <span>☰</span>
+    </div>
+
+    <div class="welcome-user">صاحبه توسلی پور، سلام ...</div>
+    <div class="welcome-desc">
+      داوطلب گرامی، به سامانه مشاهده، تایید، ایجاد و ترمیم سابقه تحصیلی خوش آمدید.<br>
+      برای مشاهده سابقه تحصیلی کلیک کنید.
+    </div>
+
+    <div class="action-banner-btn">
+      مشاهده سابقه تحصیلی و ثبت نام ایجاد و ترمیم سوابق تحصیلی
+    </div>
+
+    <div class="section-title-custom">اطلاعیه ها</div>
+
+    <div class="announcement-card">
+      <div class="announcement-title">اطلاعیه ثبت‌نام ایجاد و ترمیم سابقه تحصیلی</div>
+      <div class="announcement-subtitle">⏰ بازه زمانی ثبت نام:</div>
+      <ul class="announcement-list">
+        <li>از ۲ تیر تا ۷ تیر</li>
+      </ul>
+
+      <div class="announcement-subtitle" style="margin-top: 10px;">📢 قابل توجه متقاضیان محترم:</div>
+      <ul class="announcement-list">
+        <li>ثبت‌نام ایجاد و ترمیم سابقه تحصیلی از روز ۲ تیرماه ۱۴۰۵ آغاز شده و به مدت ۶ روز ادامه دارد.</li>
+        <li>دانش‌آموزان پایه دوازدهم که قصد شرکت در گروه آزمایشی متناظر با رشته خود را دارند، نیازی به ثبت‌نام ندارند و دروس نهایی آنان توسط مدرسه انتخاب شده است.</li>
+        <li>دانش‌آموزان پایه دوازدهم که قصد شرکت در گروه آزمایشی غیرمتناظر با دیپلم خود را دارند، باید برای ایجاد سابقه تحصیلی اقدام کنند.</li>
+      </ul>
     </div>
 
     <div class="footer-text">
@@ -325,6 +430,7 @@
   function logout() {
     document.getElementById('mainPanel').style.display = 'none';
     document.getElementById('subMenu').style.display = 'none';
+    document.getElementById('transcriptSection').style.display = 'none';
     document.getElementById('loginSection').style.display = 'block';
     document.getElementById('code').value = '';
     document.getElementById('password').value = '';
@@ -341,6 +447,16 @@
     document.getElementById('mainPanel').style.display = 'block';
   }
 
+  function showTranscriptPage() {
+    document.getElementById('subMenu').style.display = 'none';
+    document.getElementById('transcriptSection').style.display = 'block';
+  }
+
+  function backToSubMenu() {
+    document.getElementById('transcriptSection').style.display = 'none';
+    document.getElementById('subMenu').style.display = 'block';
+  }
+
   document.addEventListener("keypress", function(event) {
     if (event.key === "Enter" && document.getElementById('loginSection').style.display !== 'none') {
       login();
@@ -350,6 +466,8 @@
 
 </body>
 </html>
+
+
 
 
 
