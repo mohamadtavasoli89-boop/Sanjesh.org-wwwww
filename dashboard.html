@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -45,11 +47,10 @@
   .logo {
     display: block;
     width: 100%;
-    height: auto;
-    max-height: 140px;
+    height: auto; /* تنظیم خودکار ارتفاع بر اساس تناسب واقعی تصویر */
+    max-height: none; /* برداشتن محدودیت ارتفاع تا متن‌های پایین عکس کامل دیده شوند */
     margin: 0 auto 15px auto;
-    object-fit: contain; /* اصلاح شده برای نمایش کامل و بدون برش تصویر */
-    background-color: #ffffff;
+    object-fit: contain;
     border-radius: 12px;
   }
   label {
@@ -217,7 +218,8 @@
       توضیحات: داوطلب گرامی در صورتی که در ادوار گذشته حساب کاربری ایجاد نموده اید لزوماً با کد ملی/شناسه یکتا و رمز عبور به سامانه وارد شوید و نیازی به ایجاد حساب کاربری مجدد نمی‌باشد.
     </div>
 
-    <img class="logo" src="IMG_9312.jpeg" alt="لوگو" onerror="this.style.display='none'">
+    <!-- تغییر نام فایل عکس به IMG_9313.jpeg -->
+    <img class="logo" src="IMG_9313.jpeg" alt="لوگو" onerror="this.style.display='none'">
     
     <h2>ورود به سامانه</h2>
 
@@ -348,8 +350,6 @@
 
 </body>
 </html>
-
-
 
 
 
