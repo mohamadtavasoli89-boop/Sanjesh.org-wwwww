@@ -1,474 +1,980 @@
-برای اینکه با زدن روی دکمه «ورود به بخش» در قسمت کارنامه نهایی، دقیقاً صفحه و متن مورد نظر شما (مشابه تصویر دوم) به صورت پویا و در همان فرم بارگذاری شود، کدهای زیر را به‌روزرسانی کردم.
-در این نسخه یک بخش جدید اضافه شده است که با کلیک روی دکمه‌ی ذکر شده ظاهر می‌شود و قابلیت بازگشت به منوی قبلی را نیز دارد.
-کد کامل و به‌روزرسانی‌شده:
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>ورود به سامانه</title>
+
 <style>
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Tahoma, sans-serif;
+  background: linear-gradient(135deg, #6dd5ed, #2193b0);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* کارت اصلی */
+
+.card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 30px 25px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+/* توضیحات */
+
+.notice-box {
+  background-color: #e2f2f0;
+  border: 1px solid #b8e2de;
+  border-radius: 12px;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: #1a5c54;
+  line-height: 1.6;
+  text-align: right;
+}
+
+/* عنوان */
+
+.card h2 {
+  text-align: center;
+  color: #2193b0;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+/* عکس */
+
+.logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: none;
+  margin: 0 auto 15px auto;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+/* فرم */
+
+label {
+  display: block;
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+select,
+input {
+  width: 100%;
+  padding: 11px 12px;
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: Tahoma, sans-serif;
+  outline: none;
+}
+
+select:focus,
+input:focus {
+  border-color: #2193b0;
+}
+
+/* کپچا */
+
+.captcha-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f2f8fa;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 16px;
+  justify-content: space-between;
+  border: 1px solid #e1eef2;
+}
+
+.captcha-question {
+  font-size: 15px;
+  font-weight: bold;
+  color: #2193b0;
+}
+
+/* دکمه */
+
+button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: #2193b0;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: Tahoma, sans-serif;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #186a80;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* خطا */
+
+#error {
+  color: #e74c3c;
+  font-size: 13px;
+  text-align: center;
+  min-height: 20px;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* پنل ها */
+
+.panel-section {
+  display: none;
+}
+
+/* هدر پنل */
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+/* خروج */
+
+.logout-btn {
+  background: #ffffff;
+  border: 1px solid #e57373;
+  color: #d32f2f;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  width: auto;
+}
+
+/* کارت های داخلی */
+
+.inner-card {
+  background: #f9fbfd;
+  border: 1px solid #e1eef2;
+  border-radius: 14px;
+  padding: 15px;
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.inner-card.green-accent::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-color: #4db6ac;
+}
+
+.inner-card.blue-accent::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-color: #3f51b5;
+}
+
+.inner-card-title {
+  font-size: 15px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.inner-card-desc {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.inner-card-btn {
+  display: block;
+  width: 100%;
+  padding: 9px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn-green {
+  background: #4db6ac;
+}
+
+.btn-blue {
+  background: #3f51b5;
+}
+
+/* زیر منو */
+
+.back-link {
+  display: inline-block;
+  color: #3f51b5;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 10px;
+  text-decoration: none;
+}
+
+/* ================================================= */
+/* صفحه کارنامه نهایی */
+/* ================================================= */
+
+.final-report {
+  display: none;
+  background: #ffffff;
+  min-height: 700px;
+  padding: 5px 0 30px;
+}
+
+/* هدر صفحه */
+
+.final-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.final-menu {
+  font-size: 24px;
+  color: #333;
+}
+
+/* بخش خوش آمدگویی */
+
+.welcome-box {
+  text-align: right;
+  padding: 0 10px;
+}
+
+.welcome-box h1 {
+  font-size: 25px;
+  color: #222;
+  margin: 5px 0 25px;
+  font-weight: bold;
+  line-height: 1.6;
+}
+
+.welcome-text {
+  color: #777;
+  font-size: 18px;
+  line-height: 2;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.purple-text {
+  color: #5d2397;
+  font-size: 17px;
+  line-height: 1.8;
+  margin-bottom: 30px;
+}
+
+/* دکمه سبز */
+
+.education-btn {
+  width: 100%;
+  background: #55b58e;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 18px 15px;
+  font-family: Tahoma, sans-serif;
+  font-size: 17px;
+  font-weight: bold;
+  line-height: 1.7;
+  cursor: pointer;
+}
+
+/* عنوان اطلاعیه */
+
+.notice-title {
+  color: #5d2397;
+  font-size: 23px;
+  margin: 100px 10px 45px;
+  text-align: right;
+}
+
+/* کارت اطلاعیه */
+
+.notice-card {
+  position: relative;
+  border: 1px solid #eeeeee;
+  border-radius: 22px;
+  padding: 35px 25px;
+  margin: 0 5px;
+  background: #ffffff;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.04);
+}
+
+.notice-card h2 {
+  font-size: 24px;
+  line-height: 1.7;
+  color: #111;
+  margin: 0 0 25px;
+  text-align: right;
+}
+
+.notice-card h3 {
+  font-size: 20px;
+  line-height: 1.8;
+  margin: 15px 0;
+  color: #111;
+}
+
+.notice-card p {
+  font-size: 16px;
+  line-height: 2.1;
+  color: #222;
+  text-align: right;
+}
+
+.notice-card .bullet {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+/* پشتیبانی */
+
+.support-box {
+  position: fixed;
+  right: 15px;
+  bottom: 25px;
+  background: white;
+  border: 2px solid #6d4acb;
+  border-radius: 16px;
+  padding: 12px 18px;
+  color: #555;
+  text-align: center;
+  font-size: 13px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+  z-index: 100;
+}
+
+.support-box strong {
+  display: block;
+  color: #6041b5;
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+/* متن پایین */
+
+.footer-text {
+  text-align: center;
+  font-size: 11px;
+  color: #777;
+  margin-top: 15px;
+  line-height: 1.5;
+}
+
+/* موبایل */
+
+@media (max-width: 480px) {
+
   body {
-    margin: 0;
-    font-family: Tahoma, sans-serif;
-    background: linear-gradient(135deg, #6dd5ed, #2193b0);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-  .card {
-    background: #ffffff;
-    border-radius: 20px;
-    padding: 30px 25px;
-    width: 100%;
-    max-width: 420px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    box-sizing: border-box;
-  }
-  .notice-box {
-    background-color: #e2f2f0;
-    border: 1px solid #b8e2de;
-    border-radius: 12px;
-    padding: 12px 15px;
-    margin-bottom: 20px;
-    font-size: 13px;
-    color: #1a5c54;
-    line-height: 1.6;
-    text-align: right;
-  }
-  .card h2 {
-    text-align: center;
-    color: #2193b0;
-    margin-bottom: 20px;
-    font-size: 20px;
-  }
-  .logo {
-    display: block;
-    width: 100%;
-    height: auto;
-    max-height: none;
-    margin: 0 auto 15px auto;
-    object-fit: contain;
-    border-radius: 12px;
-  }
-  label {
-    display: block;
-    font-size: 13px;
-    color: #555;
-    margin-bottom: 6px;
-    font-weight: bold;
-  }
-  select, input {
-    width: 100%;
-    padding: 11px 12px;
-    margin-bottom: 16px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    font-size: 14px;
-    box-sizing: border-box;
-    font-family: Tahoma, sans-serif;
-    outline: none;
-    transition: border-color 0.3s;
-  }
-  select:focus, input:focus {
-    border-color: #2193b0;
-  }
-  .captcha-box {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: #f2f8fa;
-    border-radius: 10px;
     padding: 10px;
-    margin-bottom: 16px;
-    justify-content: space-between;
-    border: 1px solid #e1eef2;
+    align-items: flex-start;
   }
-  .captcha-question {
-    font-size: 15px;
-    font-weight: bold;
-    color: #2193b0;
-  }
-  button {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 10px;
-    background: #2193b0;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    font-family: Tahoma, sans-serif;
-    transition: background 0.3s, transform 0.1s;
-  }
-  button:hover {
-    background: #186a80;
-  }
-  button:active {
-    transform: scale(0.98);
-  }
-  #error {
-    color: #e74c3c;
-    font-size: 13px;
-    text-align: center;
-    min-height: 20px;
+
+  .card {
     margin-top: 10px;
-    font-weight: bold;
+    padding: 25px 18px;
   }
 
-  /* استایل‌های پنل‌ها */
-  .panel-section {
-    display: none;
+  .welcome-box h1 {
+    font-size: 23px;
   }
-  .panel-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
+
+  .welcome-text {
+    font-size: 17px;
   }
-  .logout-btn {
-    background: #ffffff;
-    border: 1px solid #e57373;
-    color: #d32f2f;
-    padding: 5px 12px;
-    border-radius: 8px;
-    font-size: 12px;
-    font-weight: bold;
-    cursor: pointer;
+
+  .purple-text {
+    font-size: 16px;
   }
-  .inner-card {
-    background: #f9fbfd;
-    border: 1px solid #e1eef2;
-    border-radius: 14px;
-    padding: 15px;
-    margin-bottom: 12px;
-    position: relative;
-    overflow: hidden;
+
+  .education-btn {
+    font-size: 16px;
   }
-  .inner-card.green-accent::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; height: 4px;
-    background-color: #4db6ac;
+
+  .notice-title {
+    margin-top: 80px;
   }
-  .inner-card.blue-accent::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; height: 4px;
-    background-color: #3f51b5;
+
+  .notice-card {
+    padding: 30px 20px;
   }
-  .inner-card-title {
+
+  .notice-card h2 {
+    font-size: 22px;
+  }
+
+  .notice-card h3 {
+    font-size: 18px;
+  }
+
+  .notice-card p {
     font-size: 15px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
-  }
-  .inner-card-desc {
-    font-size: 12px;
-    color: #666;
-    margin-bottom: 12px;
-    line-height: 1.4;
-  }
-  .inner-card-btn {
-    display: block;
-    width: 100%;
-    padding: 9px;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    font-size: 13px;
-    font-weight: bold;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-  }
-  .btn-green { background: #4db6ac; }
-  .btn-blue { background: #3f51b5; }
-  
-  .back-link {
-    display: inline-block;
-    color: #3f51b5;
-    font-size: 13px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-bottom: 10px;
-    text-decoration: none;
-  }
-  .footer-text {
-    text-align: center;
-    font-size: 11px;
-    color: #777;
-    margin-top: 15px;
-    line-height: 1.5;
   }
 
-  /* استایل‌های اختصاصی صفحه سابقه تحصیلی (مطابق تصویر دوم) */
-  .welcome-user {
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-    text-align: right;
-  }
-  .welcome-desc {
-    font-size: 13px;
-    color: #555;
-    line-height: 1.6;
-    margin-bottom: 15px;
-    text-align: right;
-  }
-  .action-banner-btn {
-    background: #2ec4b6;
-    color: white;
-    padding: 14px;
-    border-radius: 12px;
-    text-align: center;
-    font-size: 13px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 10px rgba(46,196,182,0.3);
-  }
-  .section-title-custom {
-    font-size: 14px;
-    font-weight: bold;
-    color: #6b21a8;
-    margin-bottom: 12px;
-    text-align: right;
-  }
-  .announcement-card {
-    background: #ffffff;
-    border: 1px solid #e57373;
-    border-radius: 14px;
-    padding: 16px;
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-    margin-bottom: 15px;
-    text-align: right;
-  }
-  .announcement-title {
-    font-size: 14px;
-    font-weight: bold;
-    color: #111;
-    margin-bottom: 10px;
-  }
-  .announcement-subtitle {
-    font-size: 12px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 6px;
-  }
-  .announcement-list {
-    font-size: 11px;
-    color: #4b5563;
-    line-height: 1.7;
-    padding-right: 18px;
-    margin: 0;
-  }
-  .announcement-list li {
-    margin-bottom: 5px;
-  }
+}
+
 </style>
 </head>
+
+
 <body>
 
 <div class="card">
-  
-  <!-- بخش فرم ورود -->
+
+  <!-- ================= LOGIN ================= -->
+
   <div id="loginSection">
+
     <div class="notice-box">
       توضیحات: داوطلب گرامی در صورتی که در ادوار گذشته حساب کاربری ایجاد نموده اید لزوماً با کد ملی/شناسه یکتا و رمز عبور به سامانه وارد شوید و نیازی به ایجاد حساب کاربری مجدد نمی‌باشد.
     </div>
 
-    <img class="logo" src="IMG_9313.jpeg" alt="لوگو" onerror="this.style.display='none'">
-    
+    <img
+      class="logo"
+      src="IMG_9313.jpeg"
+      alt="لوگو"
+      onerror="this.style.display='none'"
+    >
+
     <h2>ورود به سامانه</h2>
 
     <label for="nationality">ملیت</label>
+
     <select id="nationality">
       <option>ایران</option>
     </select>
 
+
     <label for="code">کد ملی</label>
-    <input type="text" id="code" maxlength="10" inputmode="numeric" placeholder="کد ملی ۱۰ رقمی">
+
+    <input
+      type="text"
+      id="code"
+      maxlength="10"
+      inputmode="numeric"
+      placeholder="کد ملی ۱۰ رقمی"
+    >
+
 
     <label for="password">رمز عبور</label>
-    <input type="password" id="password" placeholder="رمز عبور خود را وارد کنید">
+
+    <input
+      type="password"
+      id="password"
+      placeholder="رمز عبور خود را وارد کنید"
+    >
+
 
     <div class="captcha-box">
-      <span class="captcha-question" id="captchaQuestion"></span>
-      <input type="text" id="captchaAnswer" style="margin:0; width:70px; text-align:center;" placeholder="جواب">
+
+      <span
+        class="captcha-question"
+        id="captchaQuestion">
+      </span>
+
+      <input
+        type="text"
+        id="captchaAnswer"
+        style="margin:0;width:70px;text-align:center;"
+        placeholder="جواب"
+      >
+
     </div>
 
-    <button onclick="login()">ورود</button>
+
+    <button onclick="login()">
+      ورود
+    </button>
+
     <div id="error"></div>
+
   </div>
 
-  <!-- منوی اصلی پنل بعد از ورود -->
+
+  <!-- ================= MAIN PANEL ================= -->
+
   <div id="mainPanel" class="panel-section">
+
     <div class="panel-header">
-      <button class="logout-btn" onclick="logout()">خروج ←</button>
+
+      <button
+        class="logout-btn"
+        onclick="logout()">
+        خروج ←
+      </button>
+
       <span>☰</span>
+
     </div>
+
 
     <div class="inner-card green-accent">
-      <div class="inner-card-title">اطلاعات من</div>
-      <div class="inner-card-desc">مدیریت پروفایل و اطلاعات شخصی</div>
-      <button class="inner-card-btn btn-green">ورود ←</button>
+
+      <div class="inner-card-title">
+        اطلاعات من
+      </div>
+
+      <div class="inner-card-desc">
+        مدیریت پروفایل و اطلاعات شخصی
+      </div>
+
+      <button class="inner-card-btn btn-green">
+        ورود ←
+      </button>
+
     </div>
+
 
     <div class="inner-card blue-accent">
-      <div class="inner-card-title">سراسری و دانشجو معلم</div>
-      <div class="inner-card-desc">امور مربوط به آزمون سراسری، دانشجو-معلم و پذیرش بر اساس سوابق تحصیلی</div>
-      <button class="inner-card-btn btn-blue" onclick="showSubMenu()">ورود ←</button>
+
+      <div class="inner-card-title">
+        سراسری و دانشجو معلم
+      </div>
+
+      <div class="inner-card-desc">
+        امور مربوط به آزمون سراسری، دانشجو-معلم و پذیرش بر اساس سوابق تحصیلی
+      </div>
+
+      <button
+        class="inner-card-btn btn-blue"
+        onclick="showSubMenu()">
+        ورود ←
+      </button>
+
     </div>
+
   </div>
 
-  <!-- زیرمنو -->
+
+  <!-- ================= SUB MENU ================= -->
+
   <div id="subMenu" class="panel-section">
+
     <div class="panel-header">
-      <a class="back-link" onclick="backToMain()">← بازگشت</a>
+
+      <a
+        class="back-link"
+        onclick="backToMain()">
+        ← بازگشت
+      </a>
+
       <span>☰</span>
+
     </div>
 
-    <div class="inner-card blue-accent">
-      <div class="inner-card-title">اعلام نتیجه رشته های دارای شرایط خاص</div>
-      <div class="inner-card-desc">نتایج رشته های شرایط خاص</div>
-      <button class="inner-card-btn btn-blue">ورود به بخش ←</button>
-    </div>
 
     <div class="inner-card blue-accent">
-      <div class="inner-card-title">نقطه قبولی</div>
-      <div class="inner-card-desc">مشاهده حداقل نمرات قبولی</div>
-      <button class="inner-card-btn btn-blue">ورود به بخش ←</button>
+
+      <div class="inner-card-title">
+        اعلام نتیجه رشته های دارای شرایط خاص
+      </div>
+
+      <div class="inner-card-desc">
+        نتایج رشته های شرایط خاص
+      </div>
+
+      <button class="inner-card-btn btn-blue">
+        ورود به بخش ←
+      </button>
+
     </div>
 
+
     <div class="inner-card blue-accent">
-      <div class="inner-card-title">کارنامه نهایی</div>
-      <div class="inner-card-desc">دریافت کارنامه نهایی آزمون</div>
-      <!-- اتصال دکمه به تابع نمایش صفحه سابقه تحصیلی -->
-      <button class="inner-card-btn btn-blue" onclick="showTranscriptPage()">ورود به بخش ←</button>
+
+      <div class="inner-card-title">
+        نقطه قبولی
+      </div>
+
+      <div class="inner-card-desc">
+        مشاهده حداقل نمرات قبولی
+      </div>
+
+      <button class="inner-card-btn btn-blue">
+        ورود به بخش ←
+      </button>
+
     </div>
+
+
+    <!-- کارنامه نهایی -->
+
+    <div class="inner-card blue-accent">
+
+      <div class="inner-card-title">
+        کارنامه نهایی
+      </div>
+
+      <div class="inner-card-desc">
+        دریافت کارنامه نهایی آزمون
+      </div>
+
+      <button
+        class="inner-card-btn btn-blue"
+        onclick="showFinalReport()">
+        ورود به بخش ←
+      </button>
+
+    </div>
+
 
     <div class="footer-text">
-      تمامی حقوق برای سازمان سنجش آموزش کشور محفوظ می‌باشد ©<br>۱۴۰۴ | نسخه بتا
+      تمامی حقوق برای سازمان سنجش آموزش کشور محفوظ می‌باشد ©
+      <br>
+      ۱۴۰۴ | نسخه بتا
     </div>
+
   </div>
 
-  <!-- صفحه جدید سابقه تحصیلی (مطابق تصویر دوم) -->
-  <div id="transcriptSection" class="panel-section">
-    <div class="panel-header">
-      <a class="back-link" onclick="backToSubMenu()">← بازگشت</a>
-      <span>☰</span>
+
+  <!-- ================================================= -->
+  <!-- صفحه جدید کارنامه نهایی -->
+  <!-- ================================================= -->
+
+  <div id="finalReport" class="panel-section final-report">
+
+    <div class="final-header">
+
+      <span class="final-menu">
+        ☰
+      </span>
+
+      <a
+        class="back-link"
+        onclick="backToSubMenu()">
+        ← بازگشت
+      </a>
+
     </div>
 
-    <div class="welcome-user">صاحبه توسلی پور، سلام ...</div>
-    <div class="welcome-desc">
-      داوطلب گرامی، به سامانه مشاهده، تایید، ایجاد و ترمیم سابقه تحصیلی خوش آمدید.<br>
-      برای مشاهده سابقه تحصیلی کلیک کنید.
+
+    <!-- خوش آمدگویی -->
+
+    <div class="welcome-box">
+
+      <h1>
+        صاحبه توسلی پور سلام ...
+      </h1>
+
+
+      <p class="welcome-text">
+        داوطلب گرامی، به سامانه مشاهده، تایید، ایجاد و ترمیم سابقه تحصیلی خوش آمدید.
+      </p>
+
+
+      <p class="purple-text">
+        برای مشاهده سابقه تحصیلی کلیک کنید.
+      </p>
+
+
+      <button class="education-btn">
+
+        مشاهده سابقه تحصیلی و ثبت نام ایجاد و ترمیم
+        سوابق تحصیلی
+
+      </button>
+
     </div>
 
-    <div class="action-banner-btn">
-      مشاهده سابقه تحصیلی و ثبت نام ایجاد و ترمیم سوابق تحصیلی
+
+    <!-- اطلاعیه ها -->
+
+    <h2 class="notice-title">
+      اطلاعیه ها
+    </h2>
+
+
+    <div class="notice-card">
+
+      <h2>
+        اطلاعیه ثبت‌نام ایجاد و ترمیم سابقه تحصیلی
+      </h2>
+
+
+      <h3>
+        ⏰ بازه زمانی ثبت نام:
+      </h3>
+
+
+      <p class="bullet">
+        • از ۲ تیر تا ۷ تیر
+      </p>
+
+
+      <h3>
+        📢 قابل توجه متقاضیان محترم:
+      </h3>
+
+
+      <p>
+        • ثبت‌نام ایجاد و ترمیم سابقه تحصیلی از روز
+        ۲ تیرماه ۱۴۰۵ آغاز شده و به مدت ۶ روز ادامه دارد.
+      </p>
+
+
+      <p>
+        🔷 دانش‌آموزان پایه دوازدهم که قصد شرکت در گروه آزمایشی
+        متناسب با رشته خود را دارند، نیازی به ثبت‌نام مجدد ندارند
+        و دروس نهایی آنان توسط مدرسه ثبت خواهد شد.
+      </p>
+
+
+      <p>
+        🔷 دانش‌آموزان پایه دوازدهم که قصد شرکت در گروه آزمایشی
+        غیرمتناسب با دیپلم خود را دارند، برای ایجاد سابقه تحصیلی
+        باید مطابق مقررات اقدام نمایند.
+      </p>
+
     </div>
 
-    <div class="section-title-custom">اطلاعیه ها</div>
 
-    <div class="announcement-card">
-      <div class="announcement-title">اطلاعیه ثبت‌نام ایجاد و ترمیم سابقه تحصیلی</div>
-      <div class="announcement-subtitle">⏰ بازه زمانی ثبت نام:</div>
-      <ul class="announcement-list">
-        <li>از ۲ تیر تا ۷ تیر</li>
-      </ul>
+    <!-- پشتیبانی -->
 
-      <div class="announcement-subtitle" style="margin-top: 10px;">📢 قابل توجه متقاضیان محترم:</div>
-      <ul class="announcement-list">
-        <li>ثبت‌نام ایجاد و ترمیم سابقه تحصیلی از روز ۲ تیرماه ۱۴۰۵ آغاز شده و به مدت ۶ روز ادامه دارد.</li>
-        <li>دانش‌آموزان پایه دوازدهم که قصد شرکت در گروه آزمایشی متناظر با رشته خود را دارند، نیازی به ثبت‌نام ندارند و دروس نهایی آنان توسط مدرسه انتخاب شده است.</li>
-        <li>دانش‌آموزان پایه دوازدهم که قصد شرکت در گروه آزمایشی غیرمتناظر با دیپلم خود را دارند، باید برای ایجاد سابقه تحصیلی اقدام کنند.</li>
-      </ul>
+    <div class="support-box">
+
+      <div>
+        تماس با پشتیبانی
+      </div>
+
+      <strong>
+        ☎ ۰۲۱-۵۴۹۱۴
+      </strong>
+
     </div>
 
-    <div class="footer-text">
-      تمامی حقوق برای سازمان سنجش آموزش کشور محفوظ می‌باشد ©<br>۱۴۰۴ | نسخه بتا
-    </div>
   </div>
 
 </div>
 
+
+<!-- ================= JAVASCRIPT ================= -->
+
 <script>
-  const MY_CODE = "1920503889";
-  const MY_PASSWORD = "12345";
 
-  let num1 = Math.floor(Math.random() * 10) + 1;
-  let num2 = Math.floor(Math.random() * 10) + 1;
-  document.getElementById('captchaQuestion').textContent = num1 + " + " + num2 + " = ؟";
+/* اطلاعات ورود */
 
-  function login() {
-    const code = document.getElementById('code').value.trim();
-    const pass = document.getElementById('password').value.trim();
-    const captcha = document.getElementById('captchaAnswer').value.trim();
-    const errorBox = document.getElementById('error');
+const MY_CODE = "1920503889";
+const MY_PASSWORD = "12345";
 
-    errorBox.textContent = "";
 
-    if (captcha === "" || parseInt(captcha) !== (num1 + num2)) {
-      errorBox.textContent = "پاسخ عبارت امنیتی اشتباه است.";
-      return;
-    }
+/* کپچا */
 
-    if (code === MY_CODE && pass === MY_PASSWORD) {
-      document.getElementById('loginSection').style.display = 'none';
-      document.getElementById('mainPanel').style.display = 'block';
-    } else {
-      errorBox.textContent = "کد ملی یا رمز عبور اشتباه است.";
-    }
+let num1 = Math.floor(Math.random() * 10) + 1;
+let num2 = Math.floor(Math.random() * 10) + 1;
+
+document.getElementById("captchaQuestion").textContent =
+  num1 + " + " + num2 + " = ؟";
+
+
+/* ورود */
+
+function login() {
+
+  const code =
+    document.getElementById("code").value.trim();
+
+  const pass =
+    document.getElementById("password").value.trim();
+
+  const captcha =
+    document.getElementById("captchaAnswer").value.trim();
+
+  const errorBox =
+    document.getElementById("error");
+
+
+  errorBox.textContent = "";
+
+
+  /* بررسی کپچا */
+
+  if (
+    captcha === "" ||
+    parseInt(captcha) !== (num1 + num2)
+  ) {
+
+    errorBox.textContent =
+      "پاسخ عبارت امنیتی اشتباه است.";
+
+    return;
   }
 
-  function logout() {
-    document.getElementById('mainPanel').style.display = 'none';
-    document.getElementById('subMenu').style.display = 'none';
-    document.getElementById('transcriptSection').style.display = 'none';
-    document.getElementById('loginSection').style.display = 'block';
-    document.getElementById('code').value = '';
-    document.getElementById('password').value = '';
-    document.getElementById('captchaAnswer').value = '';
+
+  /* بررسی ورود */
+
+  if (
+    code === MY_CODE &&
+    pass === MY_PASSWORD
+  ) {
+
+    document.getElementById("loginSection")
+      .style.display = "none";
+
+    document.getElementById("mainPanel")
+      .style.display = "block";
+
+  } else {
+
+    errorBox.textContent =
+      "کد ملی یا رمز عبور اشتباه است.";
+
   }
 
-  function showSubMenu() {
-    document.getElementById('mainPanel').style.display = 'none';
-    document.getElementById('subMenu').style.display = 'block';
-  }
+}
 
-  function backToMain() {
-    document.getElementById('subMenu').style.display = 'none';
-    document.getElementById('mainPanel').style.display = 'block';
-  }
 
-  function showTranscriptPage() {
-    document.getElementById('subMenu').style.display = 'none';
-    document.getElementById('transcriptSection').style.display = 'block';
-  }
+/* خروج */
 
-  function backToSubMenu() {
-    document.getElementById('transcriptSection').style.display = 'none';
-    document.getElementById('subMenu').style.display = 'block';
-  }
+function logout() {
 
-  document.addEventListener("keypress", function(event) {
-    if (event.key === "Enter" && document.getElementById('loginSection').style.display !== 'none') {
+  document.getElementById("mainPanel")
+    .style.display = "none";
+
+  document.getElementById("subMenu")
+    .style.display = "none";
+
+  document.getElementById("finalReport")
+    .style.display = "none";
+
+  document.getElementById("loginSection")
+    .style.display = "block";
+
+
+  document.getElementById("code").value = "";
+
+  document.getElementById("password").value = "";
+
+  document.getElementById("captchaAnswer").value = "";
+
+}
+
+
+/* ورود به سراسری */
+
+function showSubMenu() {
+
+  document.getElementById("mainPanel")
+    .style.display = "none";
+
+  document.getElementById("subMenu")
+    .style.display = "block";
+
+}
+
+
+/* برگشت به پنل اصلی */
+
+function backToMain() {
+
+  document.getElementById("subMenu")
+    .style.display = "none";
+
+  document.getElementById("mainPanel")
+    .style.display = "block";
+
+}
+
+
+/* باز کردن کارنامه نهایی */
+
+function showFinalReport() {
+
+  document.getElementById("subMenu")
+    .style.display = "none";
+
+  document.getElementById("finalReport")
+    .style.display = "block";
+
+}
+
+
+/* برگشت از کارنامه نهایی */
+
+function backToSubMenu() {
+
+  document.getElementById("finalReport")
+    .style.display = "none";
+
+  document.getElementById("subMenu")
+    .style.display = "block";
+
+}
+
+
+/* ورود با Enter */
+
+document.addEventListener(
+  "keypress",
+  function(event) {
+
+    if (
+      event.key === "Enter" &&
+      document.getElementById("loginSection")
+        .style.display !== "none"
+    ) {
+
       login();
+
     }
-  });
+
+  }
+);
+
 </script>
 
 </body>
 </html>
-
-
-
 
 
 
