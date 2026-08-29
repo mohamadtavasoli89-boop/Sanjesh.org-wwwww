@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ورود به سامانه</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Tahoma, Arial, sans-serif;
+  background: #f5f6f8;
+  min-height: 100vh;
+  color: #333;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+
+.card {
+  width: 100%;
+  max-width: 480px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 22px 25px 30px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+
+/* بنر هدر سرمه‌ای */
+.header-banner {
+  background: linear-gradient(135deg, #1a365d, #23466f);
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+  margin-bottom: 22px;
+  overflow: hidden;
+}
+
+.header-logo-img {
+  width: 100%;
+  max-height: 150px;
+  object-fit: contain;
+  margin: 0 auto;
+  display: block;
+  border-radius: 6px;
+  background: #fff;
+  padding: 4px;
+}
+
+.login-title {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: #23466f;
+  margin: 0 0 28px;
+}
+
+/* فیلدها و کادرهای بسیار ظریف و کشیده مطابق سایت اصلی */
+.field {
+  margin-bottom: 22px;
+}
+
+.field label {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 8px;
+}
+
+input,
+select {
+  width: 100%;
+  height: 44px;
+  border: 1px solid #d0d7de;
+  border-radius: 6px; /* لبه‌ها ظریف‌تر و کمتر گرد شده */
+  background: #fff;
+  padding: 0 12px;
+  font-family: Tahoma, Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+  transition: border-color .2s;
+}
+
+input:focus,
+select:focus {
+  border-color: #23466f;
+  box-shadow: 0 0 0 2px rgba(35,70,111,.1);
+}
+
+/* آیکون چشم ظریف در سمت چپ فیلد رمز عبور */
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  padding-left: 45px;
+}
+
+.password-eye {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.password-eye svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* بخش کپچا دقیقاً مطابق سایت اصلی */
+.captcha-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.captcha-display {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 2px;
+}
+
+#captchaCanvas {
+  width: 140px;
+  height: 32px;
+}
+
+.refresh-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+
+.refresh-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: #00c853;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* دکمه‌ها با استایل تخت‌تر و ظریف */
+.login-btn {
+  width: 100%;
+  height: 46px;
+  border: none;
+  border-radius: 6px;
+  background: #1f3a60;
+  color: white;
+  font-family: Tahoma, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.government-btn {
+  width: 100%;
+  height: 46px;
+  border: 1px solid #1f3a60;
+  border-radius: 6px;
+  background: #fff;
+  color: #1f3a60;
+  font-family: Tahoma, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 12px;
+}
+
+/* متن‌های پایین فرم */
+.login-links {
+  margin-top: 25px;
+  text-align: right;
+  font-size: 13px;
+  color: #333;
+  line-height: 2.2;
+}
+
+.login-links div {
+  margin-bottom: 6px;
+}
+
+.login-links a {
+  color: #1f3a60;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.login-links a:hover {
+  text-decoration: underline;
+}
+
+#error {
+  color: #d32f2f;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  min-height: 18px;
+  margin-top: 8px;
+}
+
+.info-box {
+  display: none;
+  margin-top: 15px;
+  padding: 14px;
+  background: #f5f7fa;
+  border: 1px solid #dde3e9;
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.8;
+  text-align: right;
+}
+
+.info-close {
+  width: 100%;
+  margin-top: 8px;
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  background: #1f3a60;
+  color: #fff;
+  font-family: Tahoma;
+  cursor: pointer;
+}
+
+/* پنل داخلی */
+.panel-section {
+  display: none;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.panel-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #1f3a60;
+}
+
+.logout-btn {
+  background: #fff;
+  border: 1px solid #d9534f;
+  color: #d9534f;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-family: Tahoma;
+  font-size: 11px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+<div class="card">
+
+<div id="loginSection">
+
+  <!-- بنر هدر سرمه‌ای -->
+  <div class="header-banner">
+    <img src="IMG_9312.jpeg" alt="لوگو" class="header-logo-img" onerror="this.style.display='none'">
+  </div>
+
+  <h1 class="login-title">ورود به سامانه</h1>
+
+  <!-- فاصله بیشتر بین ملیت و کد ملی -->
+  <div class="field" style="margin-bottom: 28px;">
+    <label for="nationality">ملیت:</label>
+    <select id="nationality">
+      <option value="iran">ایران</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label for="code">کد ملی / شناسه یکتا :</label>
+    <input type="text" id="code" maxlength="10" inputmode="numeric" autocomplete="off" placeholder="کد ملی / شناسه یکتا">
+  </div>
+
+  <div class="field">
+    <label for="password">رمز عبور:</label>
+    <div class="password-wrapper">
+      <input type="password" id="password" autocomplete="off" placeholder="رمز عبور">
+      <button type="button" class="password-eye" id="passwordEye" onclick="togglePassword()" title="نمایش/پنهان رمز عبور">
+        <svg id="eyeIconSvg" viewBox="0 0 24 24">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+          <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="captcha-label">حاصل جمع اعداد:</label>
+    
+    <!-- تصویر کپچا و فلش زیر آن -->
+    <div class="captcha-container">
+      <div class="captcha-display">
+        <canvas id="captchaCanvas" width="140" height="32"></canvas>
+      </div>
+      <button type="button" class="refresh-btn" onclick="generateCaptcha()" title="تغییر عبارت">
+        <svg viewBox="0 0 24 24">
+          <path d="M23 4v6h-6"></path>
+          <path d="M1 20v-6h6"></path>
+          <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- فیلد پاسخ زیر کپچا -->
+    <input type="text" id="captchaAnswer" inputmode="numeric" autocomplete="off" placeholder="پاسخ">
+  </div>
+
+  <div id="error"></div>
+
+  <button type="button" class="login-btn" onclick="login()">ورود</button>
+  <button type="button" class="government-btn" onclick="governmentLogin()">ورود با دولت من</button>
+
+  <div class="login-links">
+    <div>هنوز حساب کاربری ایجاد نکرده اید؟ <a onclick="showInfo('register')">ایجاد حساب کاربری</a></div>
+    <div>ثبت نام کرده ام ولی رمز عبور را فراموش کرده ام <br><a onclick="showInfo('forgot')">فراموشی رمز عبور</a></div>
+    <div>درصورت داشتن هرگونه سوال به <a onclick="showInfo('support')">(سیستم پاسخگویی)</a> مراجعه فرمایید.</div>
+  </div>
+
+  <div id="infoBox" class="info-box">
+    <div id="infoText"></div>
+    <button class="info-close" onclick="closeInfo()">بستن</button>
+  </div>
+
+</div>
+
+<!-- پنل کاربری پس از ورود -->
+<div id="mainPanel" class="panel-section">
+  <div class="panel-header">
+    <button class="logout-btn" onclick="logout()">خروج ←</button>
+    <div class="panel-title">پنل کاربری</div>
+    <span class="menu-icon">☰</span>
+  </div>
+  <div style="background: #f9fbfd; border: 1px solid #e1e7ed; border-radius: 8px; padding: 16px;">
+    <strong>اطلاعات من</strong>
+    <p style="font-size: 12px; color: #666;">با موفقیت وارد شدید.</p>
+  </div>
+</div>
+
+</div>
+</div>
+
+<script>
+const MY_CODE = "1920503889";
+const MY_PASSWORD = "Sahebeh#82";
+
+let num1 = 0;
+let num2 = 0;
+
+function generateCaptcha() {
+  num1 = Math.floor(Math.random() * 9) + 1;
+  num2 = Math.floor(Math.random() * 9) + 1;
+
+  const canvas = document.getElementById("captchaCanvas");
+  const ctx = canvas.getContext("2d");
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  for (let i = 0; i < 3; i++) {
+    ctx.beginPath();
+    ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+    ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+    ctx.strokeStyle = `rgba(${Math.floor(Math.random()*120)}, ${Math.floor(Math.random()*120)}, ${Math.floor(Math.random()*200)}, 0.6)`;
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+  }
+
+  for (let i = 0; i < 3; i++) {
+    ctx.beginPath();
+    ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height, Math.random() * 8 + 4, 0, 2 * Math.PI);
+    ctx.strokeStyle = i % 2 === 0 ? "rgba(217, 83, 79, 0.6)" : "rgba(91, 192, 222, 0.6)";
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+  }
+
+  const text = num1 + " + " + num2 + " = ?";
+  ctx.font = "bold 16px Tahoma, sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillStyle = "#34495e";
+  ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+}
+
+function togglePassword() {
+  const password = document.getElementById("password");
+  const svg = document.getElementById("eyeIconSvg");
+  if (password.type === "password") {
+    password.type = "text";
+    svg.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>';
+  } else {
+    password.type = "password";
+    svg.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
+  }
+}
+
+function login() {
+  const code = document.getElementById("code").value.trim();
+  const password = document.getElementById("password").value;
+  const answer = document.getElementById("captchaAnswer").value.trim();
+  const error = document.getElementById("error");
+
+  error.textContent = "";
+
+  if (answer === "" || Number(answer) !== num1 + num2) {
+    error.textContent = "پاسخ حاصل جمع اعداد اشتباه است.";
+    document.getElementById("captchaAnswer").value = "";
+    generateCaptcha();
+    return;
+  }
+
+  if (code === MY_CODE && password === MY_PASSWORD) {
+    document.getElementById("loginSection").style.display = "none";
+    document.getElementById("mainPanel").style.display = "block";
+  } else {
+    error.textContent = "کد ملی یا رمز عبور اشتباه است.";
+  }
+}
+
+function governmentLogin() {
+  showInfo("government");
+}
+
+function logout() {
+  document.getElementById("mainPanel").style.display = "none";
+  document.getElementById("loginSection").style.display = "block";
+  document.getElementById("code").value = "";
+  document.getElementById("password").value = "";
+  document.getElementById("captchaAnswer").value = "";
+  document.getElementById("error").textContent = "";
+  generateCaptcha();
+}
+
+function showInfo(type) {
+  const box = document.getElementById("infoBox");
+  const text = document.getElementById("infoText");
+
+  if (type === "register") text.innerHTML = "<strong>ایجاد حساب کاربری</strong><br>این بخش فعال نشده است.";
+  else if (type === "forgot") text.innerHTML = "<strong>فراموشی رمز عبور</strong><br>این بخش فعال نشده است.";
+  else if (type === "support") text.innerHTML = "<strong>سیستم پاسخگویی</strong><br>در این قسمت می‌توانید سیستم پاسخگویی را قرار دهید.";
+  else if (type === "government") text.innerHTML = "<strong>ورود با دولت من</strong><br>این گزینه فعال نشده است.";
+
+  box.style.display = "block";
+}
+
+function closeInfo() {
+  document.getElementById("infoBox").style.display = "none";
+}
+
+document.getElementById("code").addEventListener("input", function() {
+  this.value = this.value.replace(/[^0-9]/g, "");
+});
+
+generateCaptcha();
+</script>
+
+</body>
+</html>
